@@ -16,6 +16,7 @@ namespace Arch.BLL
         public Triangle Create(double[] coords)
         {
             Triangle triangle = new Triangle();
+            triangle.points = new Point[3];
 
             Point p1 = new Point();
             p1.X = coords[0];
