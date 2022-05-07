@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using Arch.DAL;
@@ -33,7 +33,9 @@ namespace Arch.BLL
             p3.Y = coords[5];
             triangle.points[2] = p3;
 
-            //TODO: segment check
+            if (Area(triangle) < 1e-9)
+                throw new Exception("Triangle is degenerate!");
+
             return triangleRepo.Add(triangle);
         }
 
@@ -42,15 +44,20 @@ namespace Arch.BLL
             return triangleRepo.GetAll();
         }
 
-        public double Area(int id)
-        {
-            Triangle triangle = Find(id);
-
+        private double Area(Triangle triangle)
+        {         
             Point a = triangle.points[0];
             Point b = triangle.points[1];
             Point c = triangle.points[2];
 
             return Math.Abs(a.X * (b.Y - c.Y) + b.X * (c.Y - a.Y) + c.X * (a.Y - b.Y)) / 2;
+        }
+
+        public double Area(int id)
+        {
+            Triangle triangle = Find(id);
+
+            return Area(triangle);
         }
 
         public double Perimeter(int id)
