@@ -7,7 +7,7 @@ using Arch.Enitites;
 
 namespace Arch.DAL
 {
-    internal class TriangleFileRepo : ITriangleRepo
+    internal class TriangleTextRepo : ITriangleRepo
     {
         private readonly List<Triangle> triangles;
         private int counter;
@@ -16,7 +16,7 @@ namespace Arch.DAL
         StreamReader reader;
         StreamWriter writer;
 
-        public TriangleFileRepo()
+        public TriangleTextRepo()
         {
             triangles = new List<Triangle>();
             counter = 0;
