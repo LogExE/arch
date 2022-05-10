@@ -19,12 +19,15 @@ namespace Arch.DAL
         {
             triangles = new List<Triangle>();
             counter = 0;
-            string[] lines = File.ReadAllLines(FILE_PATH);
-            foreach (string line in lines)
+            if (File.Exists(FILE_PATH))
             {
-                Triangle dejsonified = JsonSerializer.Deserialize<Triangle>(line);
-                counter = dejsonified.Id;
-                triangles.Add(dejsonified);
+                string[] lines = File.ReadAllLines(FILE_PATH);
+                foreach (string line in lines)
+                {
+                    Triangle dejsonified = JsonSerializer.Deserialize<Triangle>(line);
+                    counter = dejsonified.Id;
+                    triangles.Add(dejsonified);
+                }
             }
         }
 
@@ -52,6 +55,8 @@ namespace Arch.DAL
                 if (triangles[i].Id == id)
                 {
                     triangles.RemoveAt(i);
+                    for (int j = i; j < triangles.Count; ++j)
+                        --triangles[j].Id;
                     File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr)));
                     return true;
                 }
