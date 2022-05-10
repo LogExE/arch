@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Linq;
 
 using Arch.Enitites;
 
@@ -11,23 +12,18 @@ namespace Arch.DAL
     {
         private readonly List<Triangle> triangles;
         private int counter;
-        private const string path = "./db.txt";
-        FileStream fileStream;
-        StreamReader reader;
-        StreamWriter writer;
+
+        private const string FILE_PATH = "./db.txt";
 
         public TriangleTextRepo()
         {
             triangles = new List<Triangle>();
             counter = 0;
-            fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-            reader = new StreamReader(fileStream);
-            writer = new StreamWriter(fileStream);
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            string[] lines = File.ReadAllLines(FILE_PATH);
+            foreach (string line in lines)
             {
                 Triangle dejsonified = JsonSerializer.Deserialize<Triangle>(line);
-                dejsonified.Id = ++counter;
+                counter = dejsonified.Id;
                 triangles.Add(dejsonified);
             }
         }
@@ -39,8 +35,7 @@ namespace Arch.DAL
                 triangle.Id = ++counter;
                 triangles.Add(triangle);
                 string jsonified = JsonSerializer.Serialize(triangle);
-                writer.WriteLine(jsonified);
-                writer.Flush();
+                File.AppendAllText(FILE_PATH, jsonified);
                 return triangle;
             }
             else throw new Exception("Triangle already exist");
@@ -57,6 +52,7 @@ namespace Arch.DAL
                 if (triangles[i].Id == id)
                 {
                     triangles.RemoveAt(i);
+                    File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr)));
                     return true;
                 }
 
