@@ -57,6 +57,7 @@ namespace Arch.DAL
                     triangles.RemoveAt(i);
                     for (int j = i; j < triangles.Count; ++j)
                         --triangles[j].Id;
+                    --counter;
                     File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr)));
                     return true;
                 }
