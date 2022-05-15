@@ -66,7 +66,7 @@ namespace Arch.PLL
 
                             break;
                         case GetTriangles:
-                            Console.WriteLine(String.Join("\n", triangleLogic.GetAll()));
+                            Console.WriteLine(string.Join("\n", triangleLogic.GetAll()));
                             break;
 
                         case GetArea:

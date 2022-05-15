@@ -13,7 +13,7 @@ namespace Arch.DAL
         private readonly List<Triangle> triangles;
         private int counter;
 
-        private const string FILE_PATH = "./db.txt";
+        private const string FILE_PATH = "./triangles_textrepo_base.txt";
 
         public TriangleTextRepo()
         {

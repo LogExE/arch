@@ -19,7 +19,8 @@ namespace Arch.UnitTests
             var repo = new TriangleMemoryRepo();
             var logic = new TriangleLogicImpl(repo);
 
-            logic.Create(new double[]{ 0, 0, 0, 1, 0, 2}); //should throw
+            //will raise an Exception
+            logic.Create(new double[]{ 0, 0, 0, 1, 0, 2});
         }
 
         [TestMethod]
