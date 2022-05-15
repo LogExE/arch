@@ -29,10 +29,14 @@ namespace Arch.PLL
         private static readonly string[] DeleteTriangleArgs = { "ID" };
 
         private const string Hint = "HINT";
+        private const string Clear = "CLEAR";
         private const string Exit = "EXIT";
 
         private const string UnknownCommand = "UNKNOWN COMMAND";
         private const string WrongArgument = "Wrong argument(s)";
+
+        private const string logo = "|Made by Vladimir Tkachev, 241 \x00A9|";
+        private static readonly string Logo = new string('-', logo.Length) + '\n' + logo + '\n' + new string('-', logo.Length);
 
         private readonly ITriangleLogic triangleLogic;
 
@@ -43,10 +47,7 @@ namespace Arch.PLL
 
         public void Start()
         {
-            string logo = "|Made by Vladimir Tkachev, 241 \x00A9|";
-            Console.WriteLine(new string('-', logo.Length));
-            Console.WriteLine(logo);
-            Console.WriteLine(new string('-', logo.Length));
+            
             Console.WriteLine(GetHint());
             for (;;)
             {
@@ -108,6 +109,9 @@ namespace Arch.PLL
                         case Hint:
                             Console.WriteLine(GetHint());
                             break;
+                        case Clear:
+                            Console.Clear();
+                            break;
                         case Exit:
                             return;
                         default:
@@ -125,6 +129,7 @@ namespace Arch.PLL
         private static string GetHint()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(Logo).Append('\n');
             sb.Append(AddTriangle).Append(": ").Append(string.Join(", ", AddTriangleArgs)).Append('\n');
             sb.Append(GetTriangles).Append('\n');
             sb.Append(ModifyTriangle).Append(": ").Append(string.Join(", ", ModifyTriangleArgs)).Append('\n');
@@ -133,6 +138,7 @@ namespace Arch.PLL
             sb.Append(GetPerimeter).Append(": ").Append(string.Join(", ", GetPerimeterArgs)).Append('\n');
             sb.Append(DeleteTriangle).Append(": ").Append(string.Join(", ", DeleteTriangleArgs)).Append('\n');
             sb.Append(Hint).Append('\n');
+            sb.Append(Clear).Append('\n');
             sb.Append(Exit).Append('\n');
 
             return sb.ToString();
