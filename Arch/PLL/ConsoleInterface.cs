@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 
 using Arch.BLL;
 
@@ -35,8 +36,9 @@ namespace Arch.PLL
         private const string UnknownCommand = "UNKNOWN COMMAND";
         private const string WrongArgument = "Wrong argument(s)";
 
-        private const string logo = "| Made by Vladimir Tkachev, 241. Please don't break anything :) |";
-        private static readonly string Logo = new string('-', logo.Length) + '\n' + logo + '\n' + new string('-', logo.Length);
+        private static readonly string[] logo_lines = new string[] { "Made by Vladimir Tkachev, 241.", "Please don't break anything :)" };
+        private static readonly int maxSyms = logo_lines.Select(x => x.Length).Max() + "|  |".Length;
+        private static readonly string Logo = new string('-', maxSyms) + '\n' + string.Join('\n', logo_lines.Select(x => "| " + x + " |")) + '\n' + new string('-', maxSyms);
 
         private readonly ITriangleLogic triangleLogic;
 
