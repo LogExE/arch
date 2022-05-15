@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using Arch.DAL;
 using Arch.Enitites;
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Arch.UnitTests")]
+
 namespace Arch.BLL
 {
     internal class TriangleLogicImpl : ITriangleLogic
@@ -16,25 +20,12 @@ namespace Arch.BLL
         public Triangle Create(double[] coords)
         {
             Triangle triangle = new Triangle();
-            triangle.Points = new Point[3];
-
-            Point p1 = new Point();
-            p1.X = coords[0];
-            p1.Y = coords[1];
-            triangle.Points[0] = p1;
-
-            Point p2 = new Point();
-            p2.X = coords[2];
-            p2.Y = coords[3];
-            triangle.Points[1] = p2;
-
-            Point p3 = new Point();
-            p3.X = coords[4];
-            p3.Y = coords[5];
-            triangle.Points[2] = p3;
+            triangle.Points[0] = new Point(coords[0], coords[1]); 
+            triangle.Points[1] = new Point(coords[2], coords[3]);
+            triangle.Points[2] = new Point(coords[4], coords[5]);
 
             if (Area(triangle) < 1e-9)
-                throw new Exception("Triangle is degenerate!");
+                throw new Exception("Triangle is degenerate");
 
             return triangleRepo.Add(triangle);
         }
