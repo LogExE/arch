@@ -5,15 +5,15 @@ namespace Arch.Enitites
     {
         public int Id { get; set; }
 
-        public Point[] points { get; set; }
+        public Point[] Points { get; set; }
 
         public override string ToString()
         {
             return string.Format("Triangle №{0} ({1}, {2}):({3}, {4}):({5}, {6})",
                 Id,
-                points[0].X, points[0].Y,
-                points[1].X, points[1].Y,
-                points[2].X, points[2].Y);
+                Points[0].X, Points[0].Y,
+                Points[1].X, Points[1].Y,
+                Points[2].X, Points[2].Y);
         }
     }
 }
