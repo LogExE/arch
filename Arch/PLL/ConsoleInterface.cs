@@ -35,7 +35,7 @@ namespace Arch.PLL
         private const string UnknownCommand = "UNKNOWN COMMAND";
         private const string WrongArgument = "Wrong argument(s)";
 
-        private const string logo = "|Made by Vladimir Tkachev, 241 \x00A9|";
+        private const string logo = "| Made by Vladimir Tkachev, 241. Please don't break anything :) |";
         private static readonly string Logo = new string('-', logo.Length) + '\n' + logo + '\n' + new string('-', logo.Length);
 
         private readonly ITriangleLogic triangleLogic;
