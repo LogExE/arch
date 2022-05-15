@@ -14,7 +14,7 @@ namespace Arch.Enitites
         public double Y { get; set; }
         public bool Equals(Point other)
         {
-            return X == other.X && Y == other.Y;
+            return Math.Abs(X - other.X) < 1e-9 && Math.Abs(Y - other.Y) < 1e-9;
         }
     }
 }

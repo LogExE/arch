@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using Arch.DAL;
 using Arch.Enitites;
 
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Arch.UnitTests")]
-
 namespace Arch.BLL
 {
     internal class TriangleLogicImpl : ITriangleLogic
@@ -28,6 +24,34 @@ namespace Arch.BLL
                 throw new Exception("Triangle is degenerate");
 
             return triangleRepo.Add(triangle);
+        }
+
+        public void Modify(int id, int idx, double[] coords)
+        {
+            --idx;
+            Triangle toModify = Find(id);
+            Point newPoint = new Point(coords[0], coords[1]);
+            Triangle toTest = new Triangle(toModify.A, toModify.B, toModify.C);
+            switch (idx)
+            {
+                case 0:
+                    toTest.A = newPoint;
+                    break;
+                case 1:
+                    toTest.B = newPoint;
+                    break;
+                case 2:
+                    toTest.C = newPoint;
+                    break;
+                default:
+                    throw new Exception("Wrong index to modify");
+            }
+
+            if (Area(toTest) < 1e-9)
+                throw new Exception("Triangle would be degenerate");
+
+            toTest.Id = toModify.Id;
+            triangleRepo.Modify(toTest);
         }
 
         public List<Triangle> GetAll()

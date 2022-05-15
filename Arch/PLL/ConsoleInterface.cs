@@ -9,10 +9,13 @@ namespace Arch.PLL
     internal class ConsoleInterface
     {
         private const string AddTriangle = "ADD";
-        private static readonly string[] AddTriangleArgs = { "x1", "y1", "x2", "y2", "x3", "y3" };
+        private static readonly string[] AddTriangleArgs = { "X1", "Y1", "X2", "Y2", "X3", "Y3" };
 
         private const string GetTriangle = "GET";
         private static readonly string[] GetTriangleArgs = { "ID" };
+
+        private const string ModifyTriangle = "MODIFY";
+        private static readonly string[] ModifyTriangleArgs = { "ID", "INDEX", "NEW X", "NEW Y" };
 
         private const string GetTriangles = "GETALL";
 
@@ -40,12 +43,16 @@ namespace Arch.PLL
 
         public void Start()
         {
+            string logo = "|Made by Vladimir Tkachev, 241 \x00A9|";
+            Console.WriteLine(new string('-', logo.Length));
+            Console.WriteLine(logo);
+            Console.WriteLine(new string('-', logo.Length));
             Console.WriteLine(GetHint());
             for (;;)
             {
                 try
                 {
-                    Console.Write("? ");
+                    Console.Write("cmd> ");
                     List<string> arguments = new List<string>(Console.ReadLine().Split(" "));
                     string command = arguments[0].ToUpper();
                     arguments.RemoveAt(0);
@@ -62,8 +69,14 @@ namespace Arch.PLL
                             if (arguments.Count != GetTriangleArgs.Length)
                                 Console.WriteLine(WrongArgument);
                             else
-                                Console.WriteLine(triangleLogic.Find(Convert.ToInt32(arguments[0])));
+                                Console.WriteLine(triangleLogic.Find(int.Parse(arguments[0])));
+                            break;
 
+                        case ModifyTriangle:
+                            if (arguments.Count != ModifyTriangleArgs.Length)
+                                Console.WriteLine(WrongArgument);
+                            else
+                                triangleLogic.Modify(int.Parse(arguments[0]), int.Parse(arguments[1]), new double[] { double.Parse(arguments[2]), double.Parse(arguments[3]) });
                             break;
                         case GetTriangles:
                             Console.WriteLine(string.Join("\n", triangleLogic.GetAll()));
@@ -73,7 +86,7 @@ namespace Arch.PLL
                             if (arguments.Count != GetAreaArgs.Length)
                                 Console.WriteLine(WrongArgument);
                             else
-                                Console.WriteLine(triangleLogic.Area(Convert.ToInt32(arguments[0])));
+                                Console.WriteLine(triangleLogic.Area(int.Parse(arguments[0])));
 
                             break;
 
@@ -81,7 +94,7 @@ namespace Arch.PLL
                             if (arguments.Count != GetPerimeterArgs.Length)
                                 Console.WriteLine(WrongArgument);
                             else
-                                Console.WriteLine(triangleLogic.Perimeter(Convert.ToInt32(arguments[0])));
+                                Console.WriteLine(triangleLogic.Perimeter(int.Parse(arguments[0])));
 
                             break;
 
@@ -89,7 +102,7 @@ namespace Arch.PLL
                             if (arguments.Count != GetTriangleArgs.Length)
                                 Console.WriteLine(WrongArgument);
                             else
-                                Console.WriteLine(triangleLogic.Delete(Convert.ToInt32(arguments[0])));
+                                Console.WriteLine(triangleLogic.Delete(int.Parse(arguments[0])));
 
                             break;
                         case Hint:
@@ -114,6 +127,7 @@ namespace Arch.PLL
             StringBuilder sb = new StringBuilder();
             sb.Append(AddTriangle).Append(": ").Append(string.Join(", ", AddTriangleArgs)).Append('\n');
             sb.Append(GetTriangles).Append('\n');
+            sb.Append(ModifyTriangle).Append(": ").Append(string.Join(", ", ModifyTriangleArgs)).Append('\n');
             sb.Append(GetTriangle).Append(": ").Append(string.Join(", ", GetTriangleArgs)).Append('\n');
             sb.Append(GetArea).Append(": ").Append(string.Join(", ", GetAreaArgs)).Append('\n');
             sb.Append(GetPerimeter).Append(": ").Append(string.Join(", ", GetPerimeterArgs)).Append('\n');

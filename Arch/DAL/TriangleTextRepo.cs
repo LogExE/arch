@@ -44,6 +44,17 @@ namespace Arch.DAL
             else throw new Exception("Triangle already exist");
         }
 
+        public void Modify(Triangle triangle)
+        {
+            for (int i = 0; i < triangles.Count; ++i)
+                if (triangles[i].Id == triangle.Id)
+                {
+                    triangles[i] = triangle;
+                    break;
+                }
+            DumpToFile();
+        }
+
         public List<Triangle> GetAll()
         {
             return triangles;
@@ -58,11 +69,16 @@ namespace Arch.DAL
                     for (int j = i; j < triangles.Count; ++j)
                         --triangles[j].Id;
                     --counter;
-                    File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr) + "\n"));
+                    DumpToFile();
                     return true;
                 }
 
             return false;
+        }
+
+        private void DumpToFile()
+        {
+            File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr)));
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Arch.BLL
     {
         Triangle Create(double[] coords);
 
+        void Modify(int id, int idx, double[] coords);
+
         List<Triangle> GetAll();
 
         double Area(int id);

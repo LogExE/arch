@@ -8,6 +8,8 @@ namespace Arch.DAL
     {
         Triangle Add(Triangle triangle);
 
+        void Modify(Triangle triangle);
+
         List<Triangle> GetAll();
 
         bool Delete(int id);

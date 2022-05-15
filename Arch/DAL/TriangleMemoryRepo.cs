@@ -27,6 +27,16 @@ namespace Arch.DAL
             else throw new Exception("Triangle already exist");
         }
 
+        public void Modify(Triangle triangle)
+        {
+            for (int i = 0; i < triangles.Count; ++i)
+                if (triangles[i].Id == triangle.Id)
+                {
+                    triangles[i] = triangle;
+                    break;
+                }
+        }
+
         public List<Triangle> GetAll()
         {
             return triangles;

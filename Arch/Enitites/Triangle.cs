@@ -2,10 +2,6 @@
 using System;
 using System.Text.Json.Serialization;
 
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Arch.UnitTests")]
-
 namespace Arch.Enitites
 {
 
