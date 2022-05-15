@@ -4,7 +4,6 @@ using Arch.BLL;
 using Arch.DAL;
 
 using System.Runtime.CompilerServices;
-
 [assembly: InternalsVisibleTo("Arch.UnitTests")]
 
 namespace Arch

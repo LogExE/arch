@@ -8,11 +8,13 @@ namespace Arch.BLL
 {
     internal class TriangleLogicImpl : ITriangleLogic
     {
-        private ITriangleRepo triangleRepo;
+        private readonly ITriangleRepo triangleRepo;
+
         public TriangleLogicImpl(ITriangleRepo triangleRepo)
         {
             this.triangleRepo = triangleRepo;
         }
+
         public Triangle Create(double[] coords)
         {
             Point p1 = new Point(coords[0], coords[1]);
@@ -59,7 +61,7 @@ namespace Arch.BLL
             return triangleRepo.GetAll();
         }
 
-        private double Area(Triangle triangle)
+        private static double Area(Triangle triangle)
         {         
             Point a = triangle.A;
             Point b = triangle.B;
@@ -101,7 +103,7 @@ namespace Arch.BLL
                 if (triangle.Id == id)
                     return triangle;
 
-            return null;
+            throw new Exception("Wrong triangle id");
         }
     }
 }

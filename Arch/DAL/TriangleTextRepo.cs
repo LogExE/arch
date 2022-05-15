@@ -50,9 +50,9 @@ namespace Arch.DAL
                 if (triangles[i].Id == triangle.Id)
                 {
                     triangles[i] = triangle;
+                    DumpToFile();
                     break;
-                }
-            DumpToFile();
+                }     
         }
 
         public List<Triangle> GetAll()
