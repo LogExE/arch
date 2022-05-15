@@ -24,9 +24,9 @@ namespace Arch.DAL
                 string[] lines = File.ReadAllLines(FILE_PATH);
                 foreach (string line in lines)
                 {
-                    Triangle dejsonified = JsonSerializer.Deserialize<Triangle>(line);
-                    counter = dejsonified.Id;
-                    triangles.Add(dejsonified);
+                    Triangle dejs = JsonSerializer.Deserialize<Triangle>(line);
+                    counter = dejs.Id;
+                    triangles.Add(dejs);
                 }
             }
         }
@@ -37,8 +37,8 @@ namespace Arch.DAL
             {
                 triangle.Id = ++counter;
                 triangles.Add(triangle);
-                string jsonified = JsonSerializer.Serialize(triangle);
-                File.AppendAllText(FILE_PATH, jsonified);
+                string js = JsonSerializer.Serialize(triangle);
+                File.AppendAllText(FILE_PATH, js + "\n");
                 return triangle;
             }
             else throw new Exception("Triangle already exist");
@@ -58,7 +58,7 @@ namespace Arch.DAL
                     for (int j = i; j < triangles.Count; ++j)
                         --triangles[j].Id;
                     --counter;
-                    File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr)));
+                    File.WriteAllLines(FILE_PATH, triangles.Select(tr => JsonSerializer.Serialize(tr) + "\n"));
                     return true;
                 }
 

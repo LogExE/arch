@@ -26,10 +26,7 @@ namespace Arch.UnitTests
         [TestMethod]
         public void ValidTriangleCreation()
         {
-            var expectedTriangle = new Triangle();
-            expectedTriangle.Points[0] = new Point(0, 0);
-            expectedTriangle.Points[1] = new Point(0, 1);
-            expectedTriangle.Points[2] = new Point(1, 0);
+            var expectedTriangle = new Triangle(new Point(0, 0), new Point(0, 1), new Point(1, 0));
             expectedTriangle.Id = 1;
 
             var repo = new TriangleMemoryRepo();

@@ -19,10 +19,10 @@ namespace Arch.BLL
         }
         public Triangle Create(double[] coords)
         {
-            Triangle triangle = new Triangle();
-            triangle.Points[0] = new Point(coords[0], coords[1]); 
-            triangle.Points[1] = new Point(coords[2], coords[3]);
-            triangle.Points[2] = new Point(coords[4], coords[5]);
+            Point p1 = new Point(coords[0], coords[1]);
+            Point p2 = new Point(coords[2], coords[3]);
+            Point p3 = new Point(coords[4], coords[5]);
+            Triangle triangle = new Triangle(p1, p2, p3);
 
             if (Area(triangle) < 1e-9)
                 throw new Exception("Triangle is degenerate");
@@ -37,9 +37,9 @@ namespace Arch.BLL
 
         private double Area(Triangle triangle)
         {         
-            Point a = triangle.Points[0];
-            Point b = triangle.Points[1];
-            Point c = triangle.Points[2];
+            Point a = triangle.A;
+            Point b = triangle.B;
+            Point c = triangle.C;
 
             return Math.Abs(a.X * (b.Y - c.Y) + b.X * (c.Y - a.Y) + c.X * (a.Y - b.Y)) / 2;
         }
@@ -55,9 +55,9 @@ namespace Arch.BLL
         {
             Triangle triangle = Find(id);
 
-            Point a = triangle.Points[0];
-            Point b = triangle.Points[1];
-            Point c = triangle.Points[2];
+            Point a = triangle.A;
+            Point b = triangle.B;
+            Point c = triangle.C;
 
             double len1 = Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
             double len2 = Math.Sqrt((b.X - c.X) * (b.X - c.X) + (b.Y - c.Y) * (b.Y - c.Y));
